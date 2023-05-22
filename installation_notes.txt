@@ -1,0 +1,15 @@
+% npx create-expo-app -t expo-template-blank-typescript
+% npm I
+
+% npm run ios
+
+
+A timer to countdown from a particular number
+a button to start the timer
+a button to pause the timer
+timer to loop between focus time and rest time
+
+
+https://youtu.be/14it9M7yyiA?t=991
+
+https://youtu.be/14it9M7yyiA?t=1483
