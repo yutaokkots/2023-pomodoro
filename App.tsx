@@ -2,11 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { TimerCountDownDisplay } from './Components/TimerCountDownDisplay';
+import { TimerModeDisplay, TimerModes } from './Components/TimerModeDisplay';
 import { TimerToggleButton } from './Components/TimerToggleButton';
 
 
-const FOCUS_TIME_MIN = 0.2 * 60 * 1000;   // 12 seconds
-const REST_TIME_MIN = 0.1 * 60 * 1000;    // 6 seconds
+const FOCUS_TIME_MIN = 25 * 60 * 1000;   // 12 seconds
+const REST_TIME_MIN = 5 * 60 * 1000;    // 6 seconds
 
 // View
 //   <View> is a foundational component in React Native
@@ -21,7 +22,7 @@ export default function App() {
     const [timerCount, setTimerCount] = useState<number>(FOCUS_TIME_MIN);
     const [timerInterval, setTimerInterval] = useState<NodeJS.Timer | null>(null);
     const [isTimerRunning, setIsTimerRunning] = useState<boolean>(false);
-    const [timerMode, setTimerMode] = useState<"Focus" | "Break">("Focus"); // a union-type - defines the values that this type is defined to
+    const [timerMode, setTimerMode] = useState<TimerModes>("Focus"); // a union-type - defines the values that this type is defined to
 
     useEffect(() => {
       if (timerCount == 0){
@@ -54,8 +55,7 @@ export default function App() {
     // destructure the styles.container and add an in-line style for the backgroundColor
     return (
         <View style={{...styles.container, ...{backgroundColor: timerMode==="Break" ? "#2a9d8f":"#d95558"}}}>
-            <Text>{timerMode} Time: </Text>
-            <Text>{timerMode === "Focus" ? "breath": "rest"}</Text>
+            <TimerModeDisplay timerMode={timerMode}/>
             <StatusBar style="auto" />
             <TimerToggleButton isTimerRunning={isTimerRunning} pauseTimer={pauseTimer} startTimer={startTimer}/>
             <TimerCountDownDisplay timerDate={ new Date(timerCount) } />
